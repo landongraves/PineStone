@@ -1,0 +1,288 @@
+:root{
+  --bg-900:#061229; /* deep navy */
+  --bg-800:#07162a;
+  --card:#072033;
+  --muted:#8a9aaf; /* Updated to a more gray tone */
+  --accent:#2e6bff; /* blue accent */
+  --accent-dark:#133b8a;
+  --accent-2:#00d4ff;
+  --glass: rgba(255,255,255,0.04);
+  --radius:12px;
+  --max:1400px; /* Increased from 1200px to 1400px for wider displays */
+  --text:#eaf4ff;
+  --success:#26a69a;
+  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+html{scroll-behavior:smooth} /* Add smooth scrolling */
+body{
+  margin:0;
+  /* Modern gradient background with more dynamic colors */
+  background: 
+    radial-gradient(circle at 20% 10%, rgba(46, 107, 255, 0.15) 0%, transparent 45%),
+    radial-gradient(circle at 80% 20%, rgba(0, 212, 255, 0.1) 0%, transparent 40%),
+    radial-gradient(circle at 40% 80%, rgba(46, 107, 255, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 90% 90%, rgba(0, 212, 255, 0.05) 0%, transparent 40%),
+    linear-gradient(135deg, #0a1a2e 0%, #16213e 25%, #0d1b2a 50%, #0a1628 75%, #0f1821 100%);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.5;
+  font-size:16px;
+  overflow-x:hidden; /* Prevent horizontal scroll */
+  /* Add a subtle texture overlay */
+  background-attachment: fixed;
+}
+
+.container{max-width:var(--max);margin:0 auto;padding:40px 60px} /* Increased padding significantly for more space */
+.section{padding:100px 0} /* Increased section padding for much more breathing room */
+.section-title{
+  text-align:center;
+  font-size:56px; /* Even bigger titles for better proportion */
+  margin:0 0 24px; /* More margin below titles */
+  /* remove boxed background/padding to let titles blend into page */
+  background:transparent;
+  display:block;
+  padding:0;
+  border-radius:0;
+  /* gradient fill: light at top to darker at bottom */
+  background-image: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(0,0,0,0.55));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent; /* use gradient as text color */
+}
+.section-sub{text-align:center;color:#8a9aaf;margin-bottom:48px;font-size:20px} /* Larger font and more margin */
+
+/* Nav - smaller height, full width */
+.nav{position:sticky;top:0;z-index:80;padding:0;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));backdrop-filter: blur(8px);border-bottom:1px solid rgba(255,255,255,0.04);box-shadow:0 8px 30px rgba(5,12,30,0.6)}
+.nav-inner{display:grid;grid-template-columns:300px 1fr 500px 180px;align-items:center;gap:60px;max-width:var(--max);margin:0 auto;padding:12px 60px}
+.brand{display:inline-flex;align-items:center;gap:10px;color:var(--text);text-decoration:none;font-weight:800}
+.brand-logo{color:var(--accent-dark)}
+.brand-text{font-size:18px}
+
+.nav-menu{display:flex;gap:40px;margin:0;list-style:none;padding:0;align-items:center;justify-content:center}
+.nav-item{position:relative}
+.nav-link{background:transparent;color:var(--muted);text-decoration:none;padding:10px 20px;border-radius:8px;font-weight:500;border:0;cursor:pointer;position:relative;font-size:15px}
+.nav-link:hover,.nav-link:focus{color:var(--text);background:linear-gradient(90deg, rgba(46,107,255,0.08), rgba(0,212,255,0.03))}
+
+.dropdown{position:absolute;top:38px;left:50%;transform:translate(-50%,-6px);background:linear-gradient(180deg, rgba(10,18,30,0.98), rgba(12,20,34,0.95));border-radius:10px;padding:8px;min-width:200px;max-width:320px;border:1px solid rgba(255,255,255,0.03);flex-direction:column;gap:6px;box-shadow:0 10px 30px rgba(2,6,23,0.6);text-align:left;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .18s ease, transform .18s ease, visibility .18s;display:flex}
+.dropdown a{color:var(--muted);padding:8px;border-radius:8px;text-decoration:none}
+.dropdown a:hover{color:var(--text);background:rgba(255,255,255,0.02)}
+.nav-item.open .dropdown{opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,0)}
+
+/* Desktop: open dropdown on hover/focus-within and animate underline */
+@media (min-width: 900px){
+  .nav-item:hover .dropdown,
+  .nav-item:focus-within .dropdown{
+    opacity:1;
+    visibility:visible;
+    pointer-events:auto;
+    transform:translate(-50%,0);
+  }
+
+  .nav-link::after{
+    content:'';
+    position:absolute;
+    left:50%;
+    bottom:6px;
+    height:2px;
+    width:0;
+    background:var(--accent);
+    transform:translateX(-50%);
+    transition:width .18s ease;
+    border-radius:2px;
+    opacity:0.95;
+  }
+  .nav-link:hover::after, .nav-link:focus::after{
+    width:70%;
+  }
+}
+
+.nav-controls{display:flex;align-items:center;gap:32px;justify-content:flex-end}
+.nav-search{width:100%;max-width:420px;padding:10px 20px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02);color:var(--text);transition:all .18s ease;font-size:14px}
+.nav-search::placeholder{color:rgba(255,255,255,0.45)}
+.nav-search:focus{border-color:rgba(46,107,255,0.3);background:rgba(255,255,255,0.04)}
+.btn.login{padding:8px 20px;white-space:nowrap}
+.btn.login.blue{background:linear-gradient(90deg,var(--accent-dark), var(--accent));color:#fff;border:1px solid rgba(0,0,0,0.08);font-weight:700;border-radius:8px;font-size:14px}
+/* login placed inside centered nav: make it outline and non-bold */
+.nav-menu .btn.login.outline{background:transparent;border:1px solid rgba(255,255,255,0.08);color:var(--text);padding:6px 10px;border-radius:8px;font-weight:400}
+.nav-menu .btn.login.outline:hover{background:rgba(255,255,255,0.02)}
+
+/* cartoony icon tweaks */
+.svg-icon svg{filter:drop-shadow(0 4px 8px rgba(2,6,23,0.25));transform:scale(1.1);color:var(--accent);fill:var(--accent)} /* Enhanced styling for new icons */
+
+.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 28px;border-radius:12px;text-decoration:none;font-weight:700;cursor:pointer;border:1px solid transparent;font-size:17px;transition:all 0.2s ease} /* Larger padding, font, and added transition */
+.btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#071226;box-shadow:0 8px 30px rgba(46,107,255,0.12)}
+.btn.primary:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(46,107,255,0.18)} /* Hover effects */
+.btn.ghost{background:transparent;color:var(--text);border:1px solid rgba(255,255,255,0.04)}
+.btn.ghost:hover{background:rgba(255,255,255,0.04);transform:translateY(-1px)} /* Hover effects */
+.btn.outline{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--text)}
+.btn.outline:hover{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.12);transform:translateY(-1px)} /* Hover effects */
+
+.nav-toggle{display:none;background:none;border:0;padding:8px;border-radius:8px}
+.hamburger{display:inline-block;width:22px;height:2px;background:var(--text);position:relative;transition:all .25s}
+.hamburger::before,.hamburger::after{content:"";position:absolute;left:0;width:22px;height:2px;background:var(--text);transition:all .25s}
+.hamburger::before{top:-7px}
+.hamburger::after{top:7px}
+
+/* Hero */
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;padding:120px 0;max-width:var(--max);margin:0 auto;padding-left:60px;padding-right:60px} /* Much more padding and spacing */
+.hero-copy{display:flex;flex-direction:column;gap:32px;max-width:580px} /* Larger max width and more gap */
+.hero-title{font-size:64px;line-height:1.1;margin:0 0 16px 0;text-align:left} /* Much larger font size */
+.hero-title .title-line{display:block;max-width:20ch}
+.hero-sub{color:#8a9aaf;margin-bottom:32px;max-width:50ch;font-size:22px;line-height:1.4} /* Larger font and better line height */
+.hero-ctas{display:flex;gap:20px} /* More gap between buttons */
+
+/* right side code card */
+.code-card{background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));border-radius:14px;padding:12px;border:1px solid rgba(255,255,255,0.06);position:relative;overflow:visible}
+.code-card pre{margin:0;white-space:pre;overflow:auto;padding:10px;border-radius:8px}
+
+/* semi-transparent glass overlay (bottom-right) that spills outside the code card */
+.glass-overlay{position:absolute;right:-18px;bottom:-18px;width:160px;height:110px;background:rgba(255,255,255,0.08);backdrop-filter: blur(10px);-webkit-backdrop-filter: blur(10px);border-radius:14px;display:flex;align-items:center;justify-content:center;pointer-events:none;box-shadow:0 8px 30px rgba(2,6,23,0.35)}
+.glass-overlay .hand{opacity:0.98;transform:translateX(6px) translateY(4px);filter:drop-shadow(0 6px 12px rgba(2,6,23,0.45))}
+
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr}
+  .hero-visual{order:2}
+  .hero-copy{order:1}
+  .glass-overlay{right:12px;bottom:12px}
+}
+
+.code-visual{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:14px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 12px 40px rgba(2,6,23,0.6)}
+.code-header{height:10px;display:flex;gap:6px;align-items:center;margin-bottom:8px}
+.code-header .dot{width:10px;height:10px;border-radius:999px;display:inline-block}
+.dot.red{background:#ff6b6b}
+.dot.yellow{background:#ffcf5c}
+.dot.green{background:#5ce68d}
+.code-visual{position:relative}
+.code-visual pre{margin:0;background:transparent;color:#cfe8ff;font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;white-space:pre;overflow:auto;padding-left:64px;padding-right:12px}
+.code-visual pre code .code-line{display:block;padding:0;margin:0;line-height:1.6}
+/* syntax coloring using simple spans */
+.code-visual .kw{color:#ffd580}
+.code-visual .fn{color:#9be7ff}
+.code-visual .str{color:#b8f59b}
+.code-visual .num{color:#ffb3d1}
+.code-visual .comment{color:#7f8fa4}
+
+/* line numbers on the right */
+.code-visual .line-numbers{position:absolute;top:12px;left:12px;display:flex;flex-direction:column;gap:2px;text-align:right;color:rgba(255,255,255,0.36);font-family:ui-monospace, monospace;font-size:13px}
+.code-visual .line-numbers div{height:auto;padding:0;margin:0;line-height:1.6}
+
+/* pricing check/X */
+.plan-features{list-style:none;padding:0;margin:32px 0;flex:1} /* More margin and flex to fill space */
+.plan-features li{display:flex;align-items:center;gap:12px;padding:12px 0;font-size:16px} /* More gap, padding, and font size */
+.plan-features li .ok{color:#7df5a6;font-weight:bold}
+.plan-features li .no{color:#ff8b94;font-weight:bold}
+
+/* developer cards: taller than wide and equal size */
+.dev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:stretch;margin-top:20px}
+.dev-card{min-height:180px}
+.dev-card .dev-info{flex:1}
+
+
+/* features */
+.features{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:48px} /* 4 columns with closer spacing */
+.feature{background:linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));padding:36px 24px;border-radius:14px;border:1px solid rgba(255,255,255,0.12);text-align:center;min-height:220px} /* Smaller padding and height */
+.feature .svg-icon{margin-bottom:20px} /* Less spacing below icons */
+.feature h3{font-size:18px;margin-bottom:12px} /* Smaller feature titles */
+.feature p{font-size:15px;line-height:1.4} /* Smaller text */
+.svg-icon svg{color:var(--accent);fill:var(--accent)} /* Update icon colors */
+
+/* pricing */
+.pricing-grid{display:flex;gap:48px;justify-content:center;margin-top:60px} /* Much more gap and margin */
+.plan{background:linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));padding:48px 32px;border-radius:16px;border:1px solid rgba(255,255,255,0.12);width:400px;text-align:left;min-height:400px;position:relative;transition:all 0.3s ease} /* Wider and taller cards with transition */
+.plan:hover{
+  transform:translateY(-8px);
+  box-shadow:0 20px 60px rgba(46,107,255,0.25), 0 0 40px rgba(46,107,255,0.15);
+}
+.plan.popular{box-shadow:0 12px 45px rgba(46,107,255,0.12);transform:translateY(-6px)}
+.plan.popular:hover{
+  transform:translateY(-12px);
+  box-shadow:0 24px 80px rgba(46,107,255,0.35), 0 0 60px rgba(46,107,255,0.25);
+}
+.plan h3{color:#8a9aaf;font-size:26px;margin:0 0 24px 0;font-weight:600} /* Bigger title with more margin */
+.price-container{display:flex;align-items:baseline;gap:8px;margin-bottom:32px}
+.price-main{font-weight:800;font-size:42px;color:var(--text)} /* Even bigger price number */
+.price-period{font-size:18px;color:var(--muted)} /* Larger period text */
+.plan-disclosure{font-size:13px;color:var(--muted);margin-top:20px;margin-bottom:0;opacity:0.8} /* Slightly larger disclosure text */
+
+/* developers */
+.dev-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;align-items:stretch;margin-top:40px} /* Changed to stretch for equal heights */
+.dev-card{background:linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));padding:32px 24px;border-radius:12px;display:flex;flex-direction:column;align-items:center;text-align:center;border:1px solid rgba(255,255,255,0.12);min-height:280px;justify-content:space-between;transition:all 0.3s ease} /* Vertical layout, taller, centered */
+.dev-avatar{width:80px;height:80px;border-radius:16px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:800;color:#071226;margin-bottom:16px;font-size:24px} /* Larger avatar with spacing */
+.dev-avatar.plus{background:transparent;color:var(--muted);border:2px dashed rgba(255,255,255,0.08);font-size:36px} /* Larger plus icon */
+.dev-card.main .dev-avatar{background:linear-gradient(135deg,#ffffff, #cfe8ff);color:var(--accent-dark)}
+.dev-info{flex:1;display:flex;flex-direction:column;align-items:center;margin-bottom:20px}
+.dev-info h4{margin:0 0 8px 0;font-size:18px}
+.dev-info p{margin:0;font-size:14px}
+.dev-card.empty:hover{background:linear-gradient(180deg, rgba(46,107,255,0.12), rgba(46,107,255,0.06));border-color:rgba(46,107,255,0.2);transform:translateY(-4px)} /* Hover effects for empty cards */
+.dev-card.empty:hover .apply-btn{background:var(--accent);color:#fff} /* Button changes on hover */
+
+/* subscribe layout */
+.subscribe-layout{display:grid;grid-template-columns:1fr 400px;gap:60px;align-items:start;max-width:var(--max);margin:0 auto;padding:0 32px} /* Added container constraints and padding */
+.subscribe-form{display:flex;gap:16px;flex-direction:column;max-width:500px} /* Limited width for better readability */
+.subscribe-form input[type="email"]{padding:16px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--text);font-size:16px} /* Increased padding and font size */
+.subscribe-right{display:grid;grid-template-columns:1fr;gap:20px} /* Changed to single column, stacked */
+.why-box{background:linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));padding:24px;border-radius:10px;border:1px solid rgba(255,255,255,0.12)} /* More padding and consistent styling */
+
+.site-footer{border-top:1px solid rgba(255,255,255,0.03);padding:60px 0 30px;margin-top:60px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01))} /* Enhanced footer styling */
+.footer-inner{max-width:var(--max);margin:0 auto;padding:0 32px}
+.footer-content{display:grid;grid-template-columns:1fr 2fr;gap:60px;margin-bottom:40px}
+.footer-brand{display:flex;align-items:flex-start;gap:16px}
+.brand-info{display:flex;flex-direction:column;gap:4px}
+.brand-name{font-size:20px;font-weight:700;color:var(--text)}
+.brand-tagline{margin:0;color:var(--muted);font-size:14px}
+.footer-links-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+.footer-section h4{margin:0 0 16px 0;color:var(--text);font-size:16px;font-weight:600}
+.footer-section a{display:block;color:var(--muted);text-decoration:none;margin-bottom:8px;transition:color 0.2s ease}
+.footer-section a:hover{color:var(--text)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:20px;border-top:1px solid rgba(255,255,255,0.03)}
+.copyright{color:var(--muted);font-size:14px}
+.social-links{display:flex;gap:16px}
+.social-links a{color:var(--muted);transition:color 0.2s ease}
+.social-links a:hover{color:var(--accent)}
+
+.visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap;border:0;padding:0;margin:-1px}
+
+/* responsive */
+@media (max-width:900px){
+  .section-title{font-size:44px} /* Larger on mobile than before */
+  .container{padding:32px 24px} /* More padding on mobile */
+  .section{padding:80px 0} /* More section padding on mobile */
+  .nav-inner{grid-template-columns:1fr;gap:20px;text-align:center;padding:16px 24px} /* Better mobile nav spacing */
+  .nav-controls{justify-content:center;gap:20px}
+  .nav-search{max-width:100%}
+  .nav-menu{gap:20px} /* More gap between nav items on mobile */
+  .hero{grid-template-columns:1fr;gap:50px;padding:80px 24px;text-align:center} /* More padding and gap */
+  .hero-copy{max-width:100%}
+  .hero-title{font-size:42px} /* Larger mobile hero title */
+  .hero-sub{font-size:20px} /* Larger mobile subtitle */
+  .nav-menu{display:none;position:absolute;left:12px;right:12px;top:68px;background:linear-gradient(180deg, rgba(8,16,30,0.98), rgba(10,18,36,0.98));padding:12px;border-radius:12px}
+  .nav-menu.show{display:flex;flex-direction:column}
+  .nav-toggle{display:inline-flex;margin-left:8px}
+  .nav-actions{margin-left:0}
+  .dev-grid{grid-template-columns:1fr;gap:24px} /* More gap on mobile */
+  .pricing-grid{flex-direction:column;align-items:center;gap:32px} /* More spacing */
+  .features{grid-template-columns:1fr;gap:28px} /* Single column with more gap */
+  .subscribe-layout{grid-template-columns:1fr;gap:48px}
+  .footer-content{grid-template-columns:1fr;gap:40px}
+  .footer-links-grid{grid-template-columns:repeat(2,1fr);gap:30px}
+  .footer-bottom{flex-direction:column;gap:20px;text-align:center}
+}
+
+@media (max-width:480px){
+  /* reduce overlay size on very small screens */
+  .glass-overlay{right:8px;bottom:8px;width:120px;height:80px}
+  .code-card pre{font-size:13px}
+  .hero-title{font-size:28px} /* Smaller title on very small screens */
+  .hero-sub{font-size:16px} /* Smaller subtitle on very small screens */
+  .section-title{font-size:32px} /* Smaller section titles on very small screens */
+  .container{padding:20px 16px} /* Smaller padding on very small screens */
+  .features{grid-template-columns:1fr} /* Single column for features on very small screens */
+  .footer-links-grid{grid-template-columns:1fr} /* Single column for footer links */
+}
+/* accessibility helper */
+.visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap;border:0;padding:0;margin:-1px}
+
